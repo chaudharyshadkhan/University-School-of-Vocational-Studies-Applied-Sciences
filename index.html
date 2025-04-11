@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Vocational Studies - Study Material Upload</title>
+    <style>
+        /* Resetting some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Upload Section */
+        #upload {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #upload h2 {
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        #upload form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #upload label {
+            font-weight: bold;
+        }
+
+        #upload input[type="text"], 
+        #upload input[type="file"], 
+        #upload input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        #upload button {
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        #upload button:hover {
+            background-color: #45a049;
+        }
+
+        /* View Uploaded Section */
+        #view {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #view h2 {
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        #uploadedMaterials {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .material-item {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-item p {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .material-item a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .material-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>University School of Vocational Studies & Applied Sciences</h1>
+            <nav>
+                <ul>
+                    <li><a href="#upload">Upload Materials</a></li>
+                    <li><a href="#view">View Uploaded Materials</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Upload Section -->
+        <section id="upload">
+            <h2>Upload Your Study Materials</h2>
+            <form id="uploadForm">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+                
+                <label for="course">Course Name:</label>
+                <input type="text" id="course" placeholder="Enter the course name" required>
+
+                <label for="materialName">Study Material Name:</label>
+                <input type="text" id="materialName" placeholder="Enter the material name" required>
+                
+                <label for="semester">Semester:</label>
+                <input type="number" id="semester" placeholder="Enter the semester" required>
+                
+                <label for="year">Year:</label>
+                <input type="number" id="year" placeholder="Enter the year" required>
+                
+                <label for="file">Select File (PDF, PPT, DOC, etc.):</label>
+                <input type="file" id="file" required>
+                
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+
+        <!-- View Uploaded Section -->
+        <section id="view">
+            <h2>View Uploaded Materials</h2>
+            <div id="uploadedMaterials">
+                <!-- Display uploaded materials here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved</p>
+        <br>
+        <p>Developed by- Chaudhary shad khan</p>
+    </footer>
+
+    <script>
+        // Simple frontend functionality for the upload form and displaying materials
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const course = document.getElementById("course").value;
+            const materialName = document.getElementById("materialName").value;
+            const semester = document.getElementById("semester").value;
+            const year = document.getElementById("year").value;
+            const file = document.getElementById("file").files[0];
+            
+            if (name && course && materialName && semester && year && file) {
+                // Simulate file download link
+                const materialDiv = document.createElement("div");
+                materialDiv.classList.add("material-item");
+                
+                const materialInfo = document.createElement("p");
+                materialInfo.innerText = `Course: ${course} | Material: ${materialName} | Semester: ${semester} | Year: ${year} | Uploaded by: ${name}`;
+                
+                const fileName = document.createElement("p");
+                fileName.innerText = `File: ${file.name}`;
+                
+                const downloadLink = document.createElement("a");
+                downloadLink.href = URL.createObjectURL(file); // Use Object URL to simulate file download
+                downloadLink.download = file.name; // File name when downloaded
+                downloadLink.innerText = "Download Material";
+                
+                materialDiv.appendChild(materialInfo);
+                materialDiv.appendChild(fileName);
+                materialDiv.appendChild(downloadLink);
+                
+                document.getElementById("uploadedMaterials").appendChild(materialDiv);
+                
+                // Clear form
+                document.getElementById("uploadForm").reset();
+            } else {
+                alert("Please provide all the necessary details.");
+            }
+        });
+    </script>
+</body>
+</html>
