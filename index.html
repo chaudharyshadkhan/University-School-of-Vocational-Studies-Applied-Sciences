@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Vocational Studies - Study Material Upload</title>
     <style>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+        
+        
         /* Resetting some default styles */
         * {
             margin: 0;
@@ -243,24 +251,35 @@
             document.getElementById("uploadedMaterials").appendChild(materialDiv);
         }
 
-        // Simple frontend functionality for the upload form and displaying materials
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById("name").value;
-            const course = document.getElementById("course").value;
-            const materialName = document.getElementById("materialName").value;
-            const semester = document.getElementById("semester").value;
-            const year = document.getElementById("year").value;
-            const file = document.getElementById("file").files[0];
-            const uploadDate = getCurrentDate(); // Get current date
+       document.getElementById("uploadForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById("name").value;
+    const course = document.getElementById("course").value;
+    const materialName = document.getElementById("materialName").value;
+    const semester = document.getElementById("semester").value;
+    const year = document.getElementById("year").value;
+    const file = document.getElementById("file").files[0];
+    const uploadDate = getCurrentDate(); // Tumhara bana hua function
 
-            if (name && course && materialName && semester && year && file) {
-                // Simulate file download link
-                const fileUrl = URL.createObjectURL(file);
-                const fileName = file.name;
+    if (name && course && materialName && semester && year && file) {
+        // Firebase Storage me reference banao
+        const storageRef = firebase.storage().ref('study_materials/' + file.name);
+        
+        // File ko Firebase me upload karo
+        const uploadTask = storageRef.put(file);
 
-                // Create material object to store
+        uploadTask.on('state_changed', 
+          (snapshot) => {
+            // (optional) Upload progress check kar sakte ho
+          }, 
+          (error) => {
+            alert('File upload failed! Please try again.');
+          }, 
+          () => {
+            // Upload success hone ke baad
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                
                 const material = {
                     name,
                     course,
@@ -268,29 +287,50 @@
                     semester,
                     year,
                     uploadDate,
-                    fileName,
-                    fileUrl
+                    fileName: file.name,
+                    fileUrl: downloadURL  // Yahan Firebase ka link aa gaya
                 };
 
-                // Retrieve existing materials from Local Storage
                 const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
                 materials.push(material);
-
-                // Save updated list of materials to Local Storage
                 localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
 
-                // Display uploaded material
                 displayMaterial(material);
-                
-                // Clear form
+
                 document.getElementById("uploadForm").reset();
-            } else {
-                alert("Please provide all the necessary details.");
-            }
-        });
+
+                alert("File Uploaded Successfully!");
+            });
+          }
+        );
+
+    } else {
+        alert("Please fill all fields and choose a file!");
+    }
+});
 
         // Load materials on page load
         window.onload = loadUploadedMaterials;
+
+        // Firebase Configuration (Replace this with your own Firebase project details)
+const firebaseConfig = {
+  apiKey: "AIzaSyAtXZe81CICPqnpus5INNoFnQNMBtAn6CY",
+  authDomain: "student-study-material-79ab2.firebaseapp.com",
+  projectId: "student-study-material-79ab2",
+  storageBucket: "student-study-material-79ab2.firebasestorage.app.appspot.com",
+  messagingSenderId: "636109405691",
+  appId: "1:636109405691:web:bcf12abf187569454d9f5e"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Initialize Storage and Firestore
+const storage = firebase.storage();
+const db = firebase.firestore();
+
+
+        
     </script>
 </body>
 </html>
