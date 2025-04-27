@@ -198,37 +198,18 @@
     </main>
 
     <footer>
-        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary Shad Khan</p>
+        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary shad khan</p>
+       
     </footer>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-
     <script>
-        // Firebase Configuration (Replace with your own Firebase project details)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAtXZe81CICPqnpus5INNoFnQNMBtAn6CY",
-            authDomain: "student-study-material-79ab2.firebaseapp.com",
-            projectId: "student-study-material-79ab2",
-            storageBucket: "student-study-material-79ab2.appspot.com",
-            messagingSenderId: "636109405691",
-            appId: "1:636109405691:web:bcf12abf187569454d9f5e"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
-
         // Function to get current date in format: YYYY-MM-DD
         function getCurrentDate() {
             const date = new Date();
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
             const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return ${year}-${month}-${day};
         }
 
         // Load uploaded materials from Local Storage
@@ -245,10 +226,10 @@
             materialDiv.classList.add("material-item");
 
             const materialInfo = document.createElement("p");
-            materialInfo.innerText = `Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name}`;
+            materialInfo.innerText = Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name};
             
             const fileName = document.createElement("p");
-            fileName.innerText = `File: ${material.fileName}`;
+            fileName.innerText = File: ${material.fileName};
             
             const downloadLink = document.createElement("a");
             downloadLink.href = material.fileUrl;
@@ -262,9 +243,7 @@
             document.getElementById("uploadedMaterials").appendChild(materialDiv);
         }
 
-        // File type validation
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.ms-powerpoint'];
-        
+        // Simple frontend functionality for the upload form and displaying materials
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
             event.preventDefault();
             
@@ -274,59 +253,43 @@
             const semester = document.getElementById("semester").value;
             const year = document.getElementById("year").value;
             const file = document.getElementById("file").files[0];
-            const uploadDate = getCurrentDate(); // Custom function to get today's date
-
-            if (!allowedTypes.includes(file.type)) {
-                alert("Please upload a valid file (PDF, DOC, PPT).");
-                return;
-            }
+            const uploadDate = getCurrentDate(); // Get current date
 
             if (name && course && materialName && semester && year && file) {
-                // Firebase Storage reference
-                const storageRef = storage.ref('study_materials/' + file.name);
+                // Simulate file download link
+                const fileUrl = URL.createObjectURL(file);
+                const fileName = file.name;
 
-                // File upload to Firebase Storage
-                const uploadTask = storageRef.put(file);
+                // Create material object to store
+                const material = {
+                    name,
+                    course,
+                    materialName,
+                    semester,
+                    year,
+                    uploadDate,
+                    fileName,
+                    fileUrl
+                };
 
-                uploadTask.on('state_changed', 
-                    (snapshot) => {
-                        // Optional: Upload progress can be checked here
-                    }, 
-                    (error) => {
-                        alert('File upload failed! Please try again.');
-                    }, 
-                    () => {
-                        // Upload success callback
-                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                            
-                            const material = {
-                                name,
-                                course,
-                                materialName,
-                                semester,
-                                year,
-                                uploadDate,
-                                fileName: file.name,
-                                fileUrl: downloadURL // Firebase link here
-                            };
+                // Retrieve existing materials from Local Storage
+                const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
+                materials.push(material);
 
-                            const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
-                            materials.push(material);
-                            localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
+                // Save updated list of materials to Local Storage
+                localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
 
-                            displayMaterial(material);
-                            document.getElementById("uploadForm").reset();
-                            alert("File Uploaded Successfully!");
-                        });
-                    }
-                );
-
+                // Display uploaded material
+                displayMaterial(material);
+                
+                // Clear form
+                document.getElementById("uploadForm").reset();
             } else {
-                alert("Please fill all fields and choose a file!");
+                alert("Please provide all the necessary details.");
             }
         });
 
-        // Load materials when the page loads
+        // Load materials on page load
         window.onload = loadUploadedMaterials;
     </script>
 </body>
