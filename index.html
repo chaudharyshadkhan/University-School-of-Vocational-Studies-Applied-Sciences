@@ -5,146 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Vocational Studies - Study Material Upload</title>
     <style>
-        /* Resetting some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Upload Section */
-        #upload {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #upload h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        #upload form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        #upload label {
-            font-weight: bold;
-        }
-
-        #upload input[type="text"], 
-        #upload input[type="file"], 
-        #upload input[type="number"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-
-        #upload button {
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        #upload button:hover {
-            background-color: #45a049;
-        }
-
-        /* View Uploaded Section */
-        #view {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #view h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        #uploadedMaterials {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .material-item {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .material-item p {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .material-item a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .material-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            margin-top: 20px;
-        }
+        /* Add your styles here (same as before) */
     </style>
 </head>
 <body>
@@ -155,7 +16,7 @@
                 <ul>
                     <li><a href="#upload">Upload Materials</a></li>
                     <li><a href="#view">View Uploaded Materials</a></li>
-                    <li><a href=" https://chaudharyshadkhan.github.io/mywebsite/">Main Website</a></li>
+                    <li><a href="https://chaudharyshadkhan.github.io/mywebsite/">Main Website</a></li>
                 </ul>
             </nav>
         </div>
@@ -198,30 +59,10 @@
     </main>
 
     <footer>
-        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary Shad Khan</p>
+        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary shad khan</p>
     </footer>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-
     <script>
-        // Firebase Configuration (Replace with your own Firebase project details)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAtXZe81CICPqnpus5INNoFnQNMBtAn6CY",
-            authDomain: "student-study-material-79ab2.firebaseapp.com",
-            projectId: "student-study-material-79ab2",
-            storageBucket: "student-study-material-79ab2.appspot.com",
-            messagingSenderId: "636109405691",
-            appId: "1:636109405691:web:bcf12abf187569454d9f5e"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
-
         // Function to get current date in format: YYYY-MM-DD
         function getCurrentDate() {
             const date = new Date();
@@ -251,7 +92,7 @@
             fileName.innerText = `File: ${material.fileName}`;
             
             const downloadLink = document.createElement("a");
-            downloadLink.href = material.fileUrl;
+            downloadLink.href = material.fileUrl; // This will be the Firebase link for download
             downloadLink.download = material.fileName;
             downloadLink.innerText = "Download Material";
             
@@ -262,9 +103,6 @@
             document.getElementById("uploadedMaterials").appendChild(materialDiv);
         }
 
-        // File type validation
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.ms-powerpoint'];
-        
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
             event.preventDefault();
             
@@ -274,29 +112,24 @@
             const semester = document.getElementById("semester").value;
             const year = document.getElementById("year").value;
             const file = document.getElementById("file").files[0];
-            const uploadDate = getCurrentDate(); // Custom function to get today's date
-
-            if (!allowedTypes.includes(file.type)) {
-                alert("Please upload a valid file (PDF, DOC, PPT).");
-                return;
-            }
+            const uploadDate = getCurrentDate(); // Your custom function
 
             if (name && course && materialName && semester && year && file) {
-                // Firebase Storage reference
-                const storageRef = storage.ref('study_materials/' + file.name);
-
-                // File upload to Firebase Storage
+                // Firebase Storage me reference banao
+                const storageRef = firebase.storage().ref('study_materials/' + file.name);
+                
+                // File ko Firebase me upload karo
                 const uploadTask = storageRef.put(file);
 
                 uploadTask.on('state_changed', 
                     (snapshot) => {
-                        // Optional: Upload progress can be checked here
+                        // (optional) Upload progress check kar sakte ho
                     }, 
                     (error) => {
                         alert('File upload failed! Please try again.');
                     }, 
                     () => {
-                        // Upload success callback
+                        // Upload success hone ke baad
                         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                             
                             const material = {
@@ -307,7 +140,7 @@
                                 year,
                                 uploadDate,
                                 fileName: file.name,
-                                fileUrl: downloadURL // Firebase link here
+                                fileUrl: downloadURL  // Firebase file URL
                             };
 
                             const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
@@ -315,7 +148,9 @@
                             localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
 
                             displayMaterial(material);
+
                             document.getElementById("uploadForm").reset();
+
                             alert("File Uploaded Successfully!");
                         });
                     }
@@ -326,341 +161,23 @@
             }
         });
 
-        // Load materials when the page loads
+        // Load materials on page load
         window.onload = loadUploadedMaterials;
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Vocational Studies - Study Material Upload</title>
-    <style>
-        /* Resetting some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Upload Section */
-        #upload {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #upload h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        #upload form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        #upload label {
-            font-weight: bold;
-        }
-
-        #upload input[type="text"], 
-        #upload input[type="file"], 
-        #upload input[type="number"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-
-        #upload button {
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        #upload button:hover {
-            background-color: #45a049;
-        }
-
-        /* View Uploaded Section */
-        #view {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #view h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        #uploadedMaterials {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .material-item {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .material-item p {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .material-item a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .material-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-container">
-            <h1>University School of Vocational Studies & Applied Sciences</h1>
-            <nav>
-                <ul>
-                    <li><a href="#upload">Upload Materials</a></li>
-                    <li><a href="#view">View Uploaded Materials</a></li>
-                    <li><a href=" https://chaudharyshadkhan.github.io/mywebsite/">Main Website</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <!-- Upload Section -->
-        <section id="upload">
-            <h2>Upload Your Study Materials</h2>
-            <form id="uploadForm">
-                <label for="name">Your Name:</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-                
-                <label for="course">Course Name:</label>
-                <input type="text" id="course" placeholder="Enter the course name" required>
-
-                <label for="materialName">Study Material Name:</label>
-                <input type="text" id="materialName" placeholder="Enter the material name" required>
-                
-                <label for="semester">Semester:</label>
-                <input type="number" id="semester" placeholder="Enter the semester" required>
-                
-                <label for="year">Year:</label>
-                <input type="number" id="year" placeholder="Enter the year" required>
-                
-                <label for="file">Select File (PDF, PPT, DOC, etc.):</label>
-                <input type="file" id="file" required>
-                
-                <button type="submit">Upload</button>
-            </form>
-        </section>
-
-        <!-- View Uploaded Section -->
-        <section id="view">
-            <h2>View Uploaded Materials</h2>
-            <div id="uploadedMaterials">
-                <!-- Display uploaded materials here -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary Shad Khan</p>
-    </footer>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-
-    <script>
-        // Firebase Configuration (Replace with your own Firebase project details)
+        // Firebase Configuration (Replace this with your own Firebase project details)
         const firebaseConfig = {
             apiKey: "AIzaSyAtXZe81CICPqnpus5INNoFnQNMBtAn6CY",
             authDomain: "student-study-material-79ab2.firebaseapp.com",
             projectId: "student-study-material-79ab2",
-            storageBucket: "student-study-material-79ab2.appspot.com",
+            storageBucket: "student-study-material-79ab2.firebasestorage.app.appspot.com",
             messagingSenderId: "636109405691",
             appId: "1:636109405691:web:bcf12abf187569454d9f5e"
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
         const storage = firebase.storage();
         const db = firebase.firestore();
-
-        // Function to get current date in format: YYYY-MM-DD
-        function getCurrentDate() {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-
-        // Load uploaded materials from Local Storage
-        function loadUploadedMaterials() {
-            const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
-            materials.forEach(material => {
-                displayMaterial(material);
-            });
-        }
-
-        // Function to display a material
-        function displayMaterial(material) {
-            const materialDiv = document.createElement("div");
-            materialDiv.classList.add("material-item");
-
-            const materialInfo = document.createElement("p");
-            materialInfo.innerText = `Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name}`;
-            
-            const fileName = document.createElement("p");
-            fileName.innerText = `File: ${material.fileName}`;
-            
-            const downloadLink = document.createElement("a");
-            downloadLink.href = material.fileUrl;
-            downloadLink.download = material.fileName;
-            downloadLink.innerText = "Download Material";
-            
-            materialDiv.appendChild(materialInfo);
-            materialDiv.appendChild(fileName);
-            materialDiv.appendChild(downloadLink);
-            
-            document.getElementById("uploadedMaterials").appendChild(materialDiv);
-        }
-
-        // File type validation
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.ms-powerpoint'];
-        
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById("name").value;
-            const course = document.getElementById("course").value;
-            const materialName = document.getElementById("materialName").value;
-            const semester = document.getElementById("semester").value;
-            const year = document.getElementById("year").value;
-            const file = document.getElementById("file").files[0];
-            const uploadDate = getCurrentDate(); // Custom function to get today's date
-
-            if (!allowedTypes.includes(file.type)) {
-                alert("Please upload a valid file (PDF, DOC, PPT).");
-                return;
-            }
-
-            if (name && course && materialName && semester && year && file) {
-                // Firebase Storage reference
-                const storageRef = storage.ref('study_materials/' + file.name);
-
-                // File upload to Firebase Storage
-                const uploadTask = storageRef.put(file);
-
-                uploadTask.on('state_changed', 
-                    (snapshot) => {
-                        // Optional: Upload progress can be checked here
-                    }, 
-                    (error) => {
-                        alert('File upload failed! Please try again.');
-                    }, 
-                    () => {
-                        // Upload success callback
-                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                            
-                            const material = {
-                                name,
-                                course,
-                                materialName,
-                                semester,
-                                year,
-                                uploadDate,
-                                fileName: file.name,
-                                fileUrl: downloadURL // Firebase link here
-                            };
-
-                            const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
-                            materials.push(material);
-                            localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
-
-                            displayMaterial(material);
-                            document.getElementById("uploadForm").reset();
-                            alert("File Uploaded Successfully!");
-                        });
-                    }
-                );
-
-            } else {
-                alert("Please fill all fields and choose a file!");
-            }
-        });
-
-        // Load materials when the page loads
-        window.onload = loadUploadedMaterials;
     </script>
 </body>
 </html>
