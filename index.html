@@ -199,7 +199,6 @@
 
     <footer>
         <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary shad khan</p>
-       
     </footer>
 
     <script>
@@ -209,7 +208,7 @@
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
             const day = String(date.getDate()).padStart(2, '0');
-            return ${year}-${month}-${day};
+            return `${year}-${month}-${day}`;
         }
 
         // Load uploaded materials from Local Storage
@@ -226,10 +225,10 @@
             materialDiv.classList.add("material-item");
 
             const materialInfo = document.createElement("p");
-            materialInfo.innerText = Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name};
+            materialInfo.innerText = `Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name}`;
             
             const fileName = document.createElement("p");
-            fileName.innerText = File: ${material.fileName};
+            fileName.innerText = `File: ${material.fileName}`;
             
             const downloadLink = document.createElement("a");
             downloadLink.href = material.fileUrl;
