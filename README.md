@@ -1,2 +1,2 @@
-# School Studies Materials
-School Studies Materials
+# University School of Vocational Studies & Applied Sciences 
+University School of Vocational Studies & Applied Sciences 
