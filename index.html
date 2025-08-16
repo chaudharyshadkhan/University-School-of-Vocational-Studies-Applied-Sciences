@@ -1,295 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Vocational Studies - Study Material Upload</title>
-    <style>
-        /* Resetting some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Vocational Studies - Study Material Upload</title>
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
 
-        header h1 {
-            font-size: 2.5em;
-        }
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
+    nav ul {
+      list-style: none;
+      margin-top: 10px;
+    }
 
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
+    nav ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    nav ul li a button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #2E7D32;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-        /* Upload Section */
-        #upload {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    nav ul li a button:hover {
+      background: #e8f5e9;
+      transform: scale(1.05);
+    }
 
-        #upload h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
+    /* Section */
+    #view {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 900px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-        #upload form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    #view h2 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      color: #2E7D32;
+    }
 
-        #upload label {
-            font-weight: bold;
-        }
+    ol {
+      list-style: none;
+      padding: 0;
+    }
 
-        #upload input[type="text"], 
-        #upload input[type="file"], 
-        #upload input[type="number"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-        }
+    ol li {
+      background: #f9f9f9;
+      margin-bottom: 12px;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
 
-        #upload button {
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
+    ol li span {
+      font-size: 0.9rem;
+      color: #666;
+    }
 
-        #upload button:hover {
-            background-color: #45a049;
-        }
+    /* Download Button */
+    a button {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-        /* View Uploaded Section */
-        #view {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    a button:hover {
+      background: linear-gradient(135deg, #66BB6A, #388E3C);
+      transform: scale(1.05);
+    }
 
-        #view h2 {
-            color: #4CAF50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        #uploadedMaterials {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .material-item {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .material-item p {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .material-item a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
-        .material-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            margin-top: 20px;
-        }
-    </style>
+    /* Footer */
+    footer {
+      margin-top: 30px;
+      background: #2E7D32;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>University School of Vocational Studies & Applied Sciences</h1>
-            <nav>
-                <ul>
-                    <li><a href="#upload">Upload Materials</a></li>
-                    <li><a href="#view">View Uploaded Materials</a></li>
-                    <li><a href=" https://chaudharyshadkhan.github.io/mywebsite/">Main Website</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <h1>University School of Vocational Studies & Applied Sciences</h1>
+    <nav>
+      <ul>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdrQfYIKWGJntxoz_rw19HsosDD7S-zROLMik2GcmtyoFGJRw/viewform?usp=dialog"><button>Upload Materials</button></a></li>
+        <li><a href="#view"><button>View Materials</button></a></li>
+        <li><a href="https://chaudharyshadkhan.github.io/mywebsite/"><button>Main Website</button></a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-        <!-- Upload Section -->
-        <section id="upload">
-            <h2>Upload Your Study Materials</h2>
-            <form id="uploadForm">
-                <label for="name">Your Name:</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-                
-                <label for="course">Course Name:</label>
-                <input type="text" id="course" placeholder="Enter the course name" required>
+  <main>
+    <section id="view">
+      <h2>📚 View Uploaded Materials</h2>
+      <ol>
+        <li>
+          Physics Notes
+          <span>Date - 01/01/2025</span>
+          <a href="file.pdf" download><button>Download</button></a>
+        </li>
+        <li>
+          Physics Notes
+          <span>Date - 01/01/2025</span>
+          <a href="file.pdf" download><button>Download</button></a>
+        </li>
+        <li>
+          Physics Notes
+          <span>Date - 01/01/2025</span>
+          <a href="file.pdf" download><button>Download</button></a>
+        </li>
+      </ol>
+    </section>
+  </main>
 
-                <label for="materialName">Study Material Name:</label>
-                <input type="text" id="materialName" placeholder="Enter the material name" required>
-                
-                <label for="semester">Semester:</label>
-                <input type="number" id="semester" placeholder="Enter the semester" required>
-                
-                <label for="year">Year:</label>
-                <input type="number" id="year" placeholder="Enter the year" required>
-                
-                <label for="file">Select File (PDF, PPT, DOC, etc.):</label>
-                <input type="file" id="file" required>
-                
-                <button type="submit">Upload</button>
-            </form>
-        </section>
-
-        <!-- View Uploaded Section -->
-        <section id="view">
-            <h2>View Uploaded Materials</h2>
-            <div id="uploadedMaterials">
-                <!-- Display uploaded materials here -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By- Chaudhary shad khan</p>
-    </footer>
-
-    <script>
-        // Function to get current date in format: YYYY-MM-DD
-        function getCurrentDate() {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-
-        // Load uploaded materials from Local Storage
-        function loadUploadedMaterials() {
-            const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
-            materials.forEach(material => {
-                displayMaterial(material);
-            });
-        }
-
-        // Function to display a material
-        function displayMaterial(material) {
-            const materialDiv = document.createElement("div");
-            materialDiv.classList.add("material-item");
-
-            const materialInfo = document.createElement("p");
-            materialInfo.innerText = `Course: ${material.course} | Material: ${material.materialName} | Semester: ${material.semester} | Year: ${material.year} | Date: ${material.uploadDate} | Uploaded by: ${material.name}`;
-            
-            const fileName = document.createElement("p");
-            fileName.innerText = `File: ${material.fileName}`;
-            
-            const downloadLink = document.createElement("a");
-            downloadLink.href = material.fileUrl;
-            downloadLink.download = material.fileName;
-            downloadLink.innerText = "Download Material";
-            
-            materialDiv.appendChild(materialInfo);
-            materialDiv.appendChild(fileName);
-            materialDiv.appendChild(downloadLink);
-            
-            document.getElementById("uploadedMaterials").appendChild(materialDiv);
-        }
-
-        // Simple frontend functionality for the upload form and displaying materials
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById("name").value;
-            const course = document.getElementById("course").value;
-            const materialName = document.getElementById("materialName").value;
-            const semester = document.getElementById("semester").value;
-            const year = document.getElementById("year").value;
-            const file = document.getElementById("file").files[0];
-            const uploadDate = getCurrentDate(); // Get current date
-
-            if (name && course && materialName && semester && year && file) {
-                // Simulate file download link
-                const fileUrl = URL.createObjectURL(file);
-                const fileName = file.name;
-
-                // Create material object to store
-                const material = {
-                    name,
-                    course,
-                    materialName,
-                    semester,
-                    year,
-                    uploadDate,
-                    fileName,
-                    fileUrl
-                };
-
-                // Retrieve existing materials from Local Storage
-                const materials = JSON.parse(localStorage.getItem("uploadedMaterials")) || [];
-                materials.push(material);
-
-                // Save updated list of materials to Local Storage
-                localStorage.setItem("uploadedMaterials", JSON.stringify(materials));
-
-                // Display uploaded material
-                displayMaterial(material);
-                
-                // Clear form
-                document.getElementById("uploadForm").reset();
-            } else {
-                alert("Please provide all the necessary details.");
-            }
-        });
-
-        // Load materials on page load
-        window.onload = loadUploadedMaterials;
-    </script>
+  <footer>
+    University School of Vocational Studies & Applied Sciences | All Rights Reserved | Developed By - Chaudhary Shad Khan
+  </footer>
 </body>
 </html>
